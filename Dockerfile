@@ -15,14 +15,14 @@ RUN apt-get install ca-certificates
 # Install rust using rustup
 RUN curl -k "https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init" -o rustup-init && \
     chmod +x rustup-init && \
-    ./rustup-init -y --default-toolchain 1.47.0 --profile minimal && \
+    ./rustup-init -y --profile minimal && \
     rm rustup-init
 
 ENV PATH=/usr/local/bin:/root/.cargo/bin:$PATH \
     PKG_CONFIG_PATH=/usr/local/lib/pkgconfig \
     LD_LIBRARY_PATH=$PREFIX
 RUN rustup target add armv7-unknown-linux-musleabihf
-RUN cargo install cargo-deb --version 1.28.0
+RUN cargo install cargo-deb 
 
 # This musl section copied from rust-embedded/cross, see musl.sh for license
 COPY musl.sh /
